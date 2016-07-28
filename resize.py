@@ -6,7 +6,7 @@ import numpy as np
 def resize(infile):
     size = 28, 28
 
-    outfile = "/images/converted/" + os.path.splitext(infile)[0] + ".thumbnail"
+    outfile = os.path.splitext(infile)[0] + ".thumbnail"
     if infile != outfile:
         try:
             im = Image.open(infile)
@@ -14,8 +14,10 @@ def resize(infile):
             #im.thumbnail(size, Image.ANTIALIAS)
             im = im.convert('LA')
             im.save(outfile, "PNG")
+            return outfile
 
         except IOError:
             print("cannot create thumbnail for '%s'" % infile)
+            return "Error"
 
-    return outfile
+

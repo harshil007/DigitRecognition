@@ -10,6 +10,12 @@ import scipy.misc as smp
 import numpy as np
 import resize
 
+image_path = input("Enter image name: ")
+#a = image_path.split('/')
+#image = a[len(a)-1]
+#image_path = "/images/"+image_path
+converted = resize.resize(image_path)
+
 
 model = model_from_json(open('my_model_architecture.json').read())
 model.load_weights('my_model_weights.h5')
@@ -18,8 +24,6 @@ model.compile(loss='categorical_crossentropy',
               optimizer=RMSprop(),
               metrics=['accuracy'])
 
-image_path = input("Enter image path: ")
-converted = resize(image_path)
 
 ima = Image.open(converted)
 pixels = np.array(ima.getdata())
