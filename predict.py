@@ -31,7 +31,13 @@ print(pixels)
 
 width, height = ima.size
 #pixels = np.array(pixels)
-#pixels = pixels.reshape(1, 784)
+
+
+#pixels = pixels[:len(pixels), :1]
+print(pixels.shape)
+pixels = pixels.reshape(1, 784)
+pixels = pixels.astype('float32')
+#pixels /= 255
 
 
 #ans = model.predict(x=pixels)
