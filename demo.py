@@ -14,7 +14,6 @@ image_path = input("Enter image name: ")
 #a = image_path.split('/')
 #image = a[len(a)-1]
 #image_path = "/images/"+image_path
-converted = resize.resize(image_path)
 
 
 model = model_from_json(open('my_model_architecture.json').read())
@@ -25,14 +24,31 @@ model.compile(loss='categorical_crossentropy',
               metrics=['accuracy'])
 
 
-ima = Image.open(converted)
-pixels = np.array(ima.getdata())
-print(pixels)
+ima = Image.open(image_path)
+pixels = list(ima.getdata())
+
 
 width, height = ima.size
-#pixels = np.array(pixels)
-#pixels = pixels.reshape(1, 784)
+pixels = np.asarray(pixels)
+pixels = pixels.reshape(1, 784)
 
 
-#ans = model.predict(x=pixels)
-#print("\n\n", ans)
+ndigits = 1
+images = pixels.reshape([ndigits, 28, 28])
+imagesums = np.sum(np.sum(images, axis=1), axis=1)
+
+
+indices = np.arange(28)
+X, Y = np.meshgrid(indices, indices)
+
+centroidx = np.sum(images * X) / imagesums
+
+centroidy = np.sum(images * Y) / imagesums
+
+pixels = pixels/255
+
+
+print(pixels)
+
+ans = model.predict(x=pixels)
+print("\n\n", ans)
