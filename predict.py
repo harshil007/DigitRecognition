@@ -9,13 +9,14 @@ from PIL import Image
 import scipy.misc as smp
 import numpy as np
 import resize
+import preprocess
 
 image_path = input("Enter image name: ")
 #a = image_path.split('/')
 #image = a[len(a)-1]
 #image_path = "/images/"+image_path
-converted = resize.resize(image_path)
-
+#converted = resize.resize(image_path)
+pixels = preprocess.preprocess(image_path)
 
 model = model_from_json(open('my_model_architecture.json').read())
 model.load_weights('my_model_weights.h5')
@@ -25,20 +26,21 @@ model.compile(loss='categorical_crossentropy',
               metrics=['accuracy'])
 
 
-ima = Image.open(converted)
-pixels = np.array(ima.getdata())
-print(pixels)
+#ima = Image.open(converted)
+#pixels = np.array(ima.getdata())
+#print(pixels)
 
-width, height = ima.size
 #pixels = np.array(pixels)
 
 
 #pixels = pixels[:len(pixels), :1]
-print(pixels.shape)
+#print(pixels.shape)
 pixels = pixels.reshape(1, 784)
-pixels = pixels.astype('float32')
+#pixels = pixels.astype('float32')
 #pixels /= 255
 
 
-#ans = model.predict(x=pixels)
-#print("\n\n", ans)
+ans = model.predict(x=pixels)
+main = np.asarray(ans)
+print("\n\n", ans)
+print("\n\nThe digit is: ", main.argmax())

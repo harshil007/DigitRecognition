@@ -34,7 +34,3 @@ def resize(infile):
     #pix = list(inv_image.getdata())
     #print(pix)
     #inv_image.show()
-
-
-
-resize("./images/8_crop.jpg")
