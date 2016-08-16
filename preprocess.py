@@ -5,7 +5,6 @@ import os
 from scipy import ndimage
 
 
-
 def getBestShift(img):
     cy,cx = ndimage.measurements.center_of_mass(img)
 
@@ -24,14 +23,6 @@ def shift(img,sx,sy):
 
 
 def preprocess(infile):
-
-
-    # create an array where we can store our 4 pictures
-    image = np.zeros((1,784))
-    # and the correct values
-    correct_vals = np.zeros((1,10))
-
-    # we want to test our images which you saw at the top of this page
 
     # read the image
     gray = cv2.imread("./images/"+infile, cv2.IMREAD_GRAYSCALE)
@@ -80,28 +71,4 @@ def preprocess(infile):
 
     flatten = gray.flatten() / 255.0
 
-
-    """
-    we need to store the flatten image and generate
-    the correct_vals array
-    correct_val for the first digit (9) would be
-    [0,0,0,0,0,0,0,0,0,1]
-
-    images[i] = flatten
-    correct_val = np.zeros((10))
-    correct_val[no] = 1
-    correct_vals[i] = correct_val
-    i += 1
-
-    the prediction will be an array with four values,
-    which show the predicted number
-
-    prediction = tf.argmax(y,1)
-
-    we want to run the prediction and the accuracy function
-    using our generated arrays (images and correct_vals)
-
-    print sess.run(prediction, feed_dict={x: images, y_: correct_vals})
-    print sess.run(accuracy, feed_dict={x: images, y_: correct_vals})
-    """
     return flatten

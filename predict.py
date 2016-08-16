@@ -11,7 +11,7 @@ import numpy as np
 import resize
 import preprocess
 
-image_path = input("Enter image name: ")
+image_path = input("Enter image name: ") #Take
 #a = image_path.split('/')
 #image = a[len(a)-1]
 #image_path = "/images/"+image_path
